@@ -1,0 +1,9 @@
+# Python Requirements for my-claude-tools
+# All current scripts use only standard library modules
+
+# Development dependencies (optional)
+pytest>=7.4.0          # Testing framework
+pytest-cov>=4.1.0      # Code coverage
+flake8>=6.1.0          # Linting
+black>=23.7.0          # Code formatting
+mypy>=1.5.0            # Type checking
