@@ -23,10 +23,10 @@ def rename_files(directory=".", pattern="*", new_pattern=None, preview=True):
     files = sorted(path.glob(pattern))
 
     if not files:
-        print(f"❌ No files found matching pattern: {pattern}")
+        print(f"[!] No files found matching pattern: {pattern}")
         return
 
-    print(f"🔍 Found {len(files)} files")
+    print(f"Found {len(files)} files")
     print()
 
     changes = []
@@ -45,18 +45,21 @@ def rename_files(directory=".", pattern="*", new_pattern=None, preview=True):
             changes.append((file, new_path))
 
     if preview:
-        print("📋 Preview of changes:")
+        print("Preview of changes:")
         for old, new in changes:
-            print(f"  {old.name} → {new.name}")
+            try:
+                print(f"  {old.name} -> {new.name}")
+            except UnicodeEncodeError:
+                print(f"  {str(old.name).encode('ascii', 'replace').decode('ascii')} -> {new.name}")
         print()
-        print("ℹ️  Run with preview=False to apply changes")
+        print("[INFO] Run with preview=False to apply changes")
     else:
-        print("✏️  Applying changes...")
+        print("Applying changes...")
         for old, new in changes:
             old.rename(new)
-            print(f"  ✅ {old.name} → {new.name}")
+            print(f"  [OK] {old.name} -> {new.name}")
         print()
-        print(f"✅ Renamed {len(changes)} files")
+        print(f"[OK] Renamed {len(changes)} files")
 
 
 if __name__ == "__main__":
